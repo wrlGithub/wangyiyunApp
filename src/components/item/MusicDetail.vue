@@ -224,7 +224,7 @@
         height: 100%;
         margin-left: 0.4rem;
         span {
-            color: #999;
+            color: rgb(242, 249, 250);
         }
         .icon {
             width: 0.3rem;

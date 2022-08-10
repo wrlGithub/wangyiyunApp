@@ -13,16 +13,19 @@ var _vuex = require("vuex");
 
 var _default = (0, _vuex.createStore)({
   state: {
+    // 播放列表
     playList: [{
+      // 别名
       al: {
         id: 16953,
-        name: "自定义",
+        name: "有何不可",
         pic: 109951166118671650,
         picUrl: "https://p2.music.126.net/KyBR4ZDYFlzQJE_uyvfjpA==/109951166118671647.jpg",
         pic_str: "109951166118671647"
       },
       id: 167876,
       name: '有何不可',
+      // 作者
       ar: [{
         name: '许嵩'
       }]
@@ -37,7 +40,15 @@ var _default = (0, _vuex.createStore)({
     //歌词
     currentTime: 0,
     //当前时间
-    duration: 0 //歌曲总时长
+    duration: 0,
+    //歌曲总时长
+    isFooterMusic: true,
+    //是否显示底部组件
+    isLogin: false,
+    // 判断是否登录
+    token: "",
+    //token记录状态保持
+    user: {} //用户信息
 
   },
   getters: {},
@@ -66,6 +77,24 @@ var _default = (0, _vuex.createStore)({
     // 更新歌曲总时长
     updateDuration: function updateDuration(state, value) {
       state.duration = value;
+    },
+    // 添加歌曲到播放列表
+    pushPlayList: function pushPlayList(state, value) {
+      state.playList.push(value);
+    },
+    // 更新登录状态
+    updateIsLogin: function updateIsLogin(state, value) {
+      state.isLogin = value;
+    },
+    // 更新token
+    updateToken: function updateToken(state, value) {
+      state.token = value;
+      console.log('localStorage', value);
+      localStorage.setItem('token', value);
+    },
+    // 用户信息
+    updateUser: function updateUser(state, value) {
+      state.user = value;
     }
   },
   actions: {
@@ -88,6 +117,27 @@ var _default = (0, _vuex.createStore)({
             case 4:
             case "end":
               return _context.stop();
+          }
+        }
+      });
+    },
+    // 
+    getLogin: function getLogin(context, value) {
+      var res;
+      return regeneratorRuntime.async(function getLogin$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return regeneratorRuntime.awrap((0, _home.getPhoneLogin)(value));
+
+            case 2:
+              res = _context2.sent;
+              return _context2.abrupt("return", res);
+
+            case 4:
+            case "end":
+              return _context2.stop();
           }
         }
       });

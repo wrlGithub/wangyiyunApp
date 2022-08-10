@@ -9,6 +9,8 @@ var _vueRouter = require("vue-router");
 
 var _Home = _interopRequireDefault(require("../views/Home.vue"));
 
+var _index = _interopRequireDefault(require("@/store/index.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -43,10 +45,58 @@ var routes = [{
       return _interopRequireWildcard(require('../views/ItemMusic.vue'));
     });
   }
+}, {
+  path: '/search',
+  name: 'Search',
+  // route level code-splitting
+  // this generates a separate chunk (about.[hash].js) for this route
+  // which is lazy-loaded when the route is visited.
+  component: function component() {
+    return Promise.resolve().then(function () {
+      return _interopRequireWildcard(require('../views/Search.vue'));
+    });
+  }
+}, {
+  path: '/login',
+  name: 'Login',
+  // route level code-splitting
+  // this generates a separate chunk (about.[hash].js) for this route
+  // which is lazy-loaded when the route is visited.
+  component: function component() {
+    return Promise.resolve().then(function () {
+      return _interopRequireWildcard(require('../views/Login.vue'));
+    });
+  }
+}, {
+  path: '/infoUser',
+  name: 'InfoUser',
+  beforeEnter: function beforeEnter(to, from, next) {
+    if (_index["default"].state.isLogin || _index["default"].state.token || localStorage.getItem('token')) {
+      console.log(_index["default"].state.isLogin);
+      next();
+    } else {
+      next('/login');
+    }
+  },
+  // route level code-splitting
+  // this generates a separate chunk (about.[hash].js) for this route
+  // which is lazy-loaded when the route is visited.
+  component: function component() {
+    return Promise.resolve().then(function () {
+      return _interopRequireWildcard(require('../views/InfoUser.vue'));
+    });
+  }
 }];
 var router = (0, _vueRouter.createRouter)({
   history: (0, _vueRouter.createWebHistory)(process.env.BASE_URL),
   routes: routes
+});
+router.beforeEach(function (to, from) {
+  if (to.path == '/login') {
+    _index["default"].state.isFooterMusic = false;
+  } else {
+    _index["default"].state.isFooterMusic = true;
+  }
 });
 var _default = router;
 exports["default"] = _default;

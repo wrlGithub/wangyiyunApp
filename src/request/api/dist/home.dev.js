@@ -5,6 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getBanner = getBanner;
 exports.getMusicList = getMusicList;
+exports.getSearchMusic = getSearchMusic;
+exports.getPhoneLogin = getPhoneLogin;
+exports.getLoginUser = getLoginUser;
 
 var _ = _interopRequireDefault(require(".."));
 
@@ -23,5 +26,29 @@ function getMusicList() {
   return (0, _["default"])({
     method: "GET",
     url: "/personalized?limit=10"
+  });
+} // 搜索
+
+
+function getSearchMusic(data) {
+  return (0, _["default"])({
+    method: "GET",
+    url: "/search?keywords=".concat(data)
+  });
+} // 电话登录
+
+
+function getPhoneLogin(data) {
+  return (0, _["default"])({
+    method: "GET",
+    url: "/login/cellphone?phone=".concat(data.phone, "&password=").concat(data.password)
+  });
+} // 获取用户详情 /user/detail?uid=32953014
+
+
+function getLoginUser(data) {
+  return (0, _["default"])({
+    method: "GET",
+    url: "/user/detail?uid=".concat(data)
   });
 }
